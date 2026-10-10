@@ -17,7 +17,7 @@ D9: Scope narrowed. shiftpoint is a signal and evidence project, not a router.
     Out of scope: main-conversation swaps, scorer backends, ScopeBench,
     gateway adapters. Reason: routing is commoditizing (Not Diamond, SAAR,
     Switchyard, Accenture), and platform risk is high. See RESEARCH.md.
-D10: Offline-evaluation hypothesis reframed from "remaining-peak tier" to "a high-tier
+D10: (Superseded by D15.) Offline-evaluation hypothesis reframed from "remaining-peak tier" to "a high-tier
     step within the next k steps". Reason: SWE high steps sit mid-trajectory,
     after the lock point. Remaining-peak would be `high` both at turn 1 and at
     lock, so the comparison couldn't discriminate. always-high and
@@ -32,3 +32,15 @@ D13: Every phase publishes something: a write-up, a dataset, a plugin, or a PR.
     Negative results get published with equal effort.
 D14: Tier vocabulary is TwinRouterBench's `low | mid | mid_high | high`.
     Mapping to concrete models is user config.
+
+## 2026-10-10: offline evaluation redesign (after FINDINGS F1)
+D15: Supersedes D10. The primary test is per-step tier prediction: for each SWE
+    step, predict whether its gold tier is `high` (balanced, 50% base rate).
+    Compare position-only models (absolute and relative step index) against
+    position + scope signals, with cross-validation grouped by trajectory.
+    Report AUROC, under-routing of high steps at matched cost (share of steps
+    routed high), and the cost proxy. Always-high and majority are reference
+    points. Go thresholds are recorded here before the signal model runs.
+    Secondary, exploratory and not a go criterion: "critical phase over",
+    meaning no `high` step remains from step t onward. D7 still applies: no
+    downgrade policy without a separate decision.
