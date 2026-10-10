@@ -42,6 +42,7 @@ negative, are recorded in [docs/FINDINGS.md](docs/FINDINGS.md).
 - [docs/RESEARCH.md](docs/RESEARCH.md): evidence and prior art
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): components and data flow
 - [spec/README.md](spec/README.md): `scope.*` event format
+- [docs/DATASETS.md](docs/DATASETS.md): dataset schemas and pins
 - [docs/DECISIONS.md](docs/DECISIONS.md): design decisions
 - [docs/FINDINGS.md](docs/FINDINGS.md): results
 
@@ -49,6 +50,7 @@ negative, are recorded in [docs/FINDINGS.md](docs/FINDINGS.md).
 Requires [uv](https://docs.astral.sh/uv/).
 ```
 uv sync
+uv run python -m shiftpoint_replay.download   # TwinRouterBench, pinned + checksummed
 uv run ruff check . && uv run ruff format --check .
 uv run pyright
 uv run pytest

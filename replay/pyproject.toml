@@ -1,0 +1,14 @@
+[project]
+name = "shiftpoint-replay"
+version = "0.0.0"
+description = "Offline evaluation of shiftpoint against recorded agent trajectories."
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = ["shiftpoint-core"]
+
+[tool.uv.sources]
+shiftpoint-core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.8,<0.12"]
+build-backend = "uv_build"

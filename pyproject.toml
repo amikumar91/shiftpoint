@@ -5,16 +5,17 @@ description = "Detect when an agent session's scope locks, and emit a signal rou
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.12"
-dependencies = ["shiftpoint-core"]
+dependencies = ["shiftpoint-core", "shiftpoint-replay"]
 
 [tool.uv]
 package = false
 
 [tool.uv.workspace]
-members = ["packages/*"]
+members = ["packages/*", "replay"]
 
 [tool.uv.sources]
 shiftpoint-core = { workspace = true }
+shiftpoint-replay = { workspace = true }
 
 [dependency-groups]
 dev = [
@@ -32,11 +33,11 @@ select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF"]
 
 [tool.pyright]
 pythonVersion = "3.12"
-include = ["packages"]
-strict = ["packages/core/src"]
+include = ["packages", "replay"]
+strict = ["packages/core/src", "replay/src"]
 venvPath = "."
 venv = ".venv"
 
 [tool.pytest.ini_options]
-testpaths = ["packages/core/tests"]
+testpaths = ["packages/core/tests", "replay/tests"]
 addopts = ["-ra", "--strict-markers", "--import-mode=importlib"]

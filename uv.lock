@@ -6,6 +6,7 @@ requires-python = ">=3.12"
 members = [
     "shiftpoint",
     "shiftpoint-core",
+    "shiftpoint-replay",
 ]
 
 [[package]]
@@ -122,6 +123,7 @@ version = "0.0.0"
 source = { virtual = "." }
 dependencies = [
     { name = "shiftpoint-core" },
+    { name = "shiftpoint-replay" },
 ]
 
 [package.dev-dependencies]
@@ -132,7 +134,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "shiftpoint-core", editable = "packages/core" }]
+requires-dist = [
+    { name = "shiftpoint-core", editable = "packages/core" },
+    { name = "shiftpoint-replay", editable = "replay" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -145,6 +150,17 @@ dev = [
 name = "shiftpoint-core"
 version = "0.0.0"
 source = { editable = "packages/core" }
+
+[[package]]
+name = "shiftpoint-replay"
+version = "0.0.0"
+source = { editable = "replay" }
+dependencies = [
+    { name = "shiftpoint-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "shiftpoint-core", editable = "packages/core" }]
 
 [[package]]
 name = "typing-extensions"
