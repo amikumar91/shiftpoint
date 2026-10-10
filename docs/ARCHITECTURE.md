@@ -13,16 +13,29 @@ The same `packages/core` runs offline over TwinRouterBench prefixes and local
 transcripts (replay), and live inside the Claude Code plugin.
 
 ## 1. Signal extractor (pure functions over an event stream)
+A session is a list of `Turn`s, one per model call. Each turn holds `Action`s
+of kind `read | search | edit | test | run | other`, with touched paths and
+success when known (`shiftpoint_core.events`). Agents that work through a
+single shell tool are mapped to actions by a regex-level command classifier
+(`shiftpoint_core.bash`). On TwinRouterBench SWE it leaves only 6 of 389
+commands as `other`, all of them `pip install`.
+
+`shiftpoint_core.signals.extract(turns)` computes:
+
 | Signal | Meaning |
 |---|---|
-| plan_committed | plan mode exited, or a todo/plan written and stable for N turns |
-| exploration_decay | new files read per turn trending toward 0 |
-| rw_flip | write/edit calls overtake read/search calls |
-| first_verify | first test/build/lint command |
-| user_go | user confirms after a plan |
-| touch_set_stable | set of edited paths stops growing |
-| failure_streak | consecutive failed tool calls or test runs |
-| out_of_set_touch | edit outside the touch set |
+| exploration_decay | 1 − (recent new-file rate ÷ peak new-file rate); 0 = still discovering |
+| rw_flip | edits outnumber reads + searches over the last 2 turns |
+| has_edit, turns_since_first_edit | whether and how long ago editing started |
+| first_verify | a test or run happened after the first edit |
+| touch_set_size, touch_set_stable | distinct edited paths; no new edited path in the last turn |
+| out_of_set_touch | new edited paths introduced after the first verify |
+| failure_streak | consecutive failed actions at the end |
+| counts | turns, actions, reads, searches, edits, tests, runs, files_seen |
+
+Harness-only signals (not observable in recorded benchmarks, added by the
+plugin): `plan_committed` (plan mode exited or a stable todo list) and
+`user_go` (user confirms after a plan).
 
 ## 2. Lock detector (state machine with hysteresis)
 `EXPLORING → LOCKED → (DRIFTING → EXPLORING)`, `LOCKED → DONE`.
