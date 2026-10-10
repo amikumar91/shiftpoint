@@ -15,8 +15,9 @@ Goal: open-source impact and credibility, not a commercial router (D9).
 3. docs/FINDINGS.md: what we've learned so far, including negatives
 4. docs/ARCHITECTURE.md: components and data flow
 5. spec/README.md: scope.* event format (v0 draft = plugin log schema)
-6. docs/DECISIONS.md: settled decisions; don't relitigate without flagging
-7. docs/ROADMAP.md: phases and checklist (local only, if present; never committed)
+6. docs/DATASETS.md: dataset schemas, pins, quirks
+7. docs/DECISIONS.md: settled decisions; don't relitigate without flagging
+8. docs/ROADMAP.md: phases and checklist (local only, if present; never committed)
 
 ## Hard scope limits (D9, D11)
 - Never change the main conversation's model; the only lever is subagent tier at launch.
@@ -49,5 +50,5 @@ Goal: open-source impact and credibility, not a commercial router (D9).
 - [ ] PreToolUse `updatedInput` rewrite of Agent `model` actually takes effect (needs a live test)
 - [x] Transcripts at ~/.claude/projects/**/*.jsonl (written async; may lag current turn)
 - [x] TwinRouterBench is Apache-2.0; data on HF `Amorph/TwinRouterBench`
-- [ ] TwinRouterBench `question_bank.jsonl` field-level schema (document when building the loader)
+- [x] TwinRouterBench schema documented in docs/DATASETS.md (pinned revision + sha256)
 - [x] Name `shiftpoint` free on PyPI and as amikumar91/shiftpoint (Oct 2026); npm unchecked
